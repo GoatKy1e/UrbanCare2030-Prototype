@@ -1,0 +1,161 @@
+:root {
+  --color-background: #F5F7FB;
+  --color-card: #FFFFFF;
+  --color-border: #E2E8F0;
+  --color-text-primary: #101828;
+  --color-text-secondary: #667085;
+
+  --color-primary: #2F6FED;
+  --color-primary-tint: #EAF1FE;
+  --color-secondary: #7C5CFC;
+  --color-secondary-tint: #F1EDFF;
+
+  --color-success: #16A34A;
+  --color-success-tint: #DCFCE7;
+  --color-error: #DC2626;
+  --color-error-tint: #FEE2E2;
+  --color-warning: #D97706;
+  --color-warning-tint: #FEF3C7;
+
+  --radius-card: 14px;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+
+  --text-h1: 28px;
+  --text-caption: 12px;
+  --text-label: 14px;
+}
+
+/* ---------------------------------------------------------------
+   Colour-vision-deficiency palette.
+   Toggled from the Welcome screen; sets data-palette="cvd" on <html>.
+   Every screen colour is a token, so the whole system re-skins at once.
+
+   Hues come from the Okabe-Ito / Paul Tol CVD-safe sets, and the
+   semantic pairs are also separated by LIGHTNESS so they stay
+   distinguishable even in full monochrome:
+     primary  dark blue      (L~34)
+     error    vermillion     (L~48)  - reads orange, never confused with blue
+     success  dark green     (L~40)
+     warning  amber          (L~70)
+   --------------------------------------------------------------- */
+:root[data-palette='cvd'] {
+  --color-primary: #0058A3;
+  --color-primary-tint: #DCE9F5;
+  --color-secondary: #AA3377;
+  --color-secondary-tint: #F5E4EE;
+
+  --color-success: #117733;
+  --color-success-tint: #DAEDE0;
+  --color-error: #D55E00;
+  --color-error-tint: #FBE3D2;
+  --color-warning: #DDAA33;
+  --color-warning-tint: #FAF0DA;
+
+  --color-text-secondary: #55606E;
+  --color-border: #D3DAE3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #E9ECF3;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  color: var(--color-text-primary);
+}
+
+/* Scrolling stays fully functional — only the scrollbar chrome is hidden,
+   both on the page and inside the phone screen. */
+html,
+body,
+.no-scrollbar {
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* legacy Edge / IE */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;              /* Chrome, Safari, Edge */
+}
+
+#root {
+  min-height: 100vh;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input {
+  font-family: inherit;
+}
+
+/* ---------------------------------------------------------------
+   Press feedback.
+   Screens are built from inline-styled divs, so this hooks the
+   attribute-substring selector on `cursor: pointer` to cover every
+   tappable element without touching each one individually.
+   --------------------------------------------------------------- */
+button,
+[role='button'],
+[style*='cursor: pointer'] {
+  transition: transform 0.13s cubic-bezier(0.3, 0.8, 0.4, 1),
+              filter 0.13s ease,
+              box-shadow 0.13s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:active,
+[role='button']:active,
+[style*='cursor: pointer']:active {
+  transform: scale(0.965);
+  filter: brightness(0.94);
+}
+
+/* Raised CTAs also flatten their shadow while held. */
+button:active,
+[role='button']:active {
+  box-shadow: #00000022 0px 1px 2px !important;
+}
+
+/* Keyboard focus stays visible for accessibility. */
+button:focus-visible,
+[role='button']:focus-visible,
+[style*='cursor: pointer']:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button, [role='button'], [style*='cursor: pointer'] { transition: none; }
+  button:active, [role='button']:active, [style*='cursor: pointer']:active { transform: none; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.28s ease both;
+}
+
+/* Voice waveform pulse — deliberately gentle, just enough to read as "listening". */
+@keyframes voicePulse {
+  0%, 100% { transform: scaleY(0.93); }
+  50%      { transform: scaleY(1.1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .voice-bar { animation: none !important; }
+}
