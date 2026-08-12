@@ -1,4 +1,5 @@
 import { useApp } from '../state/AppContext';
+import { speak, stopSpeaking } from '../lib/speech';
 
 // Speaker path data split out of the Paper exports so the sound waves can be
 // dropped when voice guidance is muted.
@@ -14,6 +15,16 @@ export default function SpeakerButton() {
   const on = voiceGuidance;
   const stroke = on ? 'var(--color-primary)' : 'var(--color-text-secondary)';
 
+  // The speaker is the only control that turns TalkBack on or off after the
+  // welcome page. Turning it on confirms itself out loud; turning it off goes
+  // quiet immediately.
+  function toggle() {
+    const next = !on;
+    setVoiceGuidance(next);
+    if (next) speak('Voice guidance on');
+    else stopSpeaking();
+  }
+
   return (
     <div
       role="switch"
@@ -21,8 +32,8 @@ export default function SpeakerButton() {
       aria-label={on ? 'Voice guidance on' : 'Voice guidance muted'}
       title={on ? 'Voice guidance on — tap to mute' : 'Muted — tap to turn voice guidance on'}
       tabIndex={0}
-      onClick={() => setVoiceGuidance(!on)}
-      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setVoiceGuidance(!on); } }}
+      onClick={toggle}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } }}
       style={{
         alignItems: 'center', borderRadius: '12px', boxSizing: 'border-box', cursor: 'pointer',
         display: 'flex', flexShrink: '0', height: '40px', justifyContent: 'center', width: '40px',

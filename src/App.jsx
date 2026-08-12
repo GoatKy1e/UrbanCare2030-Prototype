@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import PhoneFrame from './components/PhoneFrame';
+import TalkBack from './components/TalkBack';
 import { AppProvider } from './state/AppContext';
 
 import Welcome from './screens/Welcome';
@@ -23,6 +24,7 @@ import SOSEmergency from './screens/SOSEmergency';
 export default function App() {
   return (
     <AppProvider>
+      <TalkBack />
       <PhoneFrame>
         <Routes>
           <Route path="/" element={<Welcome />} />

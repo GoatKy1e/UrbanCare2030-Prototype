@@ -1,14 +1,29 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PrimaryButton, SecondaryButton } from '../components/Buttons';
 import { WelcomeWaveform } from '../components/VoiceBar';
 import { useApp } from '../state/AppContext';
+import { speak, stopSpeaking } from '../lib/speech';
+
+const WELCOME_SCRIPT =
+  'Welcome to UrbanCare. Would you like voice guidance turned on? ' +
+  'Choose: Yes, turn it on. Or: No, continue without. ' +
+  'You can also log in, register, or switch on colour-blind mode.';
 
 // Ported from "00 Welcome voice over.js"
 export default function Welcome() {
   const navigate = useNavigate();
   const { setVoiceGuidance, colorBlindMode, setColorBlindMode } = useApp();
 
+  // This page always speaks, on or off — at this point we have no way of
+  // knowing whether the user can see the choice we are asking them to make.
+  useEffect(() => {
+    speak(WELCOME_SCRIPT, { rate: 0.95 });
+    return stopSpeaking;
+  }, []);
+
   function choose(on) {
+    stopSpeaking();
     setVoiceGuidance(on);
     navigate('/register');
   }
