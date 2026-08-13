@@ -129,12 +129,24 @@ export default function Register() {
         </div>
 
         {method === 'faceId' ? (
-          <div style={{ alignItems: 'center', backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)', borderRadius: '12px', borderStyle: 'solid', borderWidth: '1px', boxSizing: 'border-box', display: 'flex', flexShrink: '0', gap: '20px', height: '320px', justifyContent: 'center', paddingInline: '20px', width: '300px', alignSelf: 'center' }}>
-            <div style={{
-              backgroundImage: 'url(https://app.paper.design/file-assets/01KZRP0Z5H214K6Z1EYJYNZZJK/01KZTK5317MVMD7QAZ4N9JK7YG.png)',
-              backgroundPosition: '50%', backgroundSize: 'cover', borderRadius: 'var(--radius-card)', boxSizing: 'border-box',
-              flexShrink: '0', height: '320px', width: '300px', opacity: scanning ? 0.55 : 1, transition: 'opacity 0.2s ease',
-            }} />
+          <div style={{ alignItems: 'center', backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)', borderRadius: '12px', borderStyle: 'solid', borderWidth: '1px', boxSizing: 'border-box', display: 'flex', flexShrink: '0', height: '320px', justifyContent: 'center', width: '300px', alignSelf: 'center' }}>
+            {hasError ? (
+              /* No camera: crossed-out camera instead of the face preview */
+              <svg width="190" height="190" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: '0' }} className="fade-in">
+                <circle cx="100" cy="100" r="72" fill="none" stroke="var(--color-error)" strokeWidth="9" />
+                <rect x="52" y="74" width="96" height="60" rx="10" fill="none" stroke="var(--color-error)" strokeWidth="8" />
+                <path d="M78 74 l9-15 h26 l9 15" fill="none" stroke="var(--color-error)" strokeWidth="8" strokeLinejoin="round" strokeLinecap="round" />
+                <circle cx="100" cy="104" r="19" fill="none" stroke="var(--color-error)" strokeWidth="8" />
+                <circle cx="132" cy="88" r="4.5" fill="var(--color-error)" />
+                <path d="M49 151 L151 49" stroke="var(--color-error)" strokeWidth="10" strokeLinecap="round" />
+              </svg>
+            ) : (
+              <div style={{
+                backgroundImage: 'url(https://app.paper.design/file-assets/01KZRP0Z5H214K6Z1EYJYNZZJK/01KZTK5317MVMD7QAZ4N9JK7YG.png)',
+                backgroundPosition: '50%', backgroundSize: 'cover', borderRadius: 'var(--radius-card)', boxSizing: 'border-box',
+                flexShrink: '0', height: '320px', width: '300px', opacity: scanning ? 0.55 : 1, transition: 'opacity 0.2s ease',
+              }} />
+            )}
           </div>
         ) : (
           <input

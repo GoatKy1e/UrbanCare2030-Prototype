@@ -31,6 +31,7 @@ const ROUTE_LABEL = {
   '/map': 'Nearest care',
   '/ar-map': 'A R map',
   '/records': 'Medical records',
+  '/records/visit': 'Visit report',
   '/sos': 'Emergency S O S',
 };
 

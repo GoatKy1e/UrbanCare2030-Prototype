@@ -19,6 +19,7 @@ import CallScreen from './screens/CallScreen';
 import MapPharmacy from './screens/MapPharmacy';
 import ARMap from './screens/ARMap';
 import MedicalRecords from './screens/MedicalRecords';
+import VisitReport from './screens/VisitReport';
 import SOSEmergency from './screens/SOSEmergency';
 
 export default function App() {
@@ -47,6 +48,7 @@ export default function App() {
           <Route path="/map" element={<MapPharmacy />} />
           <Route path="/ar-map" element={<ARMap />} />
           <Route path="/records" element={<MedicalRecords />} />
+          <Route path="/records/visit/:id" element={<VisitReport />} />
           <Route path="/sos" element={<SOSEmergency />} />
 
           <Route path="*" element={<Welcome />} />

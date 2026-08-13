@@ -89,8 +89,8 @@ export default function Home() {
         <div style={sectionTitle}>Your snapshot</div>
       </div>
 
-      {/* Upcoming appointment */}
-      <div style={card}>
+      {/* Upcoming appointment — whole card is the target, not just the arrow */}
+      <div onClick={() => navigate('/appointments')} style={{ ...card, cursor: 'pointer' }}>
         <div style={{ alignItems: 'center', boxSizing: 'border-box', display: 'flex', gap: '8px' }}>
           <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: '0' }}>
             <path d="M7 3v3M17 3v3M4 8h16M5 6h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1z" fill="none" stroke="var(--color-primary)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
@@ -98,17 +98,18 @@ export default function Home() {
           <div style={{ boxSizing: 'border-box', color: 'var(--color-primary)', flexBasis: '0%', flexGrow: '1', fontFamily: '"Inter", system-ui, sans-serif', fontSize: '14px', fontWeight: 500, lineHeight: '18px' }}>
             Upcoming appointment
           </div>
-          <div onClick={() => navigate('/appointments')} style={{ ...arrow, cursor: 'pointer' }}>→</div>
+          <div style={arrow}>→</div>
         </div>
         <div style={cardValue}>{appointment.date} · {appointment.time}</div>
         <div style={cardMeta}>{doctor.name} · {appointment.mode}</div>
+        {/* stopPropagation so these act on their own, not the card behind them */}
         <div style={{ alignItems: 'center', borderRadius: '12px', boxSizing: 'border-box', display: 'flex', gap: '6px', justifyContent: 'center', paddingBlock: '8px', width: 'fit-content' }}>
           {isVideo ? (
-            <PillButton onClick={() => navigate('/call')}>Join Call</PillButton>
+            <PillButton onClick={(e) => { e.stopPropagation(); navigate('/call'); }}>Join Call</PillButton>
           ) : (
             <>
               <PillButton
-                onClick={() => navigate('/map')}
+                onClick={(e) => { e.stopPropagation(); navigate('/map'); }}
                 icon={
                   <svg width="15" height="15" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: '0' }}>
                     <path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z" fill="none" stroke="var(--color-background)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
@@ -119,7 +120,7 @@ export default function Home() {
                 Directions
               </PillButton>
               <PillButton
-                onClick={() => navigate('/ar-map')}
+                onClick={(e) => { e.stopPropagation(); navigate('/ar-map'); }}
                 icon={
                   <svg width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: '0' }}>
                     <path d="M7.5 1.875L2.5 4.375v6.25l5 2.5 5-2.5V4.375z" fill="none" stroke="var(--color-background)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -134,8 +135,11 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Next medication */}
-      <div style={{ ...card, marginTop: '12px' }}>
+      {/* Next medication — opens Records on the Medicine tab */}
+      <div
+        onClick={() => navigate('/records', { state: { tab: 'medicine' } })}
+        style={{ ...card, cursor: 'pointer', marginTop: '12px' }}
+      >
         <div style={{ alignItems: 'center', boxSizing: 'border-box', display: 'flex', gap: '8px' }}>
           <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: '0' }}>
             <rect x="3" y="9" width="18" height="6" rx="3" transform="rotate(45 12 12)" fill="none" stroke="var(--color-secondary)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
@@ -154,7 +158,10 @@ export default function Home() {
       </div>
 
       {/* Remote monitoring */}
-      <div style={{ ...card, backgroundColor: 'var(--color-error-tint)', borderColor: 'var(--color-error)', marginTop: '12px' }}>
+      <div
+        onClick={() => navigate('/records')}
+        style={{ ...card, backgroundColor: 'var(--color-error-tint)', borderColor: 'var(--color-error)', cursor: 'pointer', marginTop: '12px' }}
+      >
         <div style={{ alignItems: 'center', boxSizing: 'border-box', display: 'flex', gap: '8px' }}>
           <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: '0' }}>
             <path d="M12 20s-7-4.5-9.5-9A4.6 4.6 0 0 1 12 6a4.6 4.6 0 0 1 9.5 5C19 15.5 12 20 12 20z" fill="none" stroke="var(--color-error)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
@@ -162,7 +169,7 @@ export default function Home() {
           <div style={{ boxSizing: 'border-box', color: 'var(--color-error)', flexBasis: '0%', flexGrow: '1', fontFamily: '"Inter", system-ui, sans-serif', fontSize: '14px', fontWeight: 500, lineHeight: '18px' }}>
             Remote monitoring
           </div>
-          <div onClick={() => navigate('/records')} style={{ ...arrow, cursor: 'pointer' }}>→</div>
+          <div style={arrow}>→</div>
         </div>
         <div style={{ alignItems: 'center', boxSizing: 'border-box', display: 'flex', gap: '16px' }}>
           <div style={{ boxSizing: 'border-box', display: 'flex', flexDirection: 'column', flexShrink: '0', gap: '2px', width: '76px' }}>
