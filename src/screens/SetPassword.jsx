@@ -19,30 +19,34 @@ function strengthOf(pw) {
 function PasswordField({ label, value, onChange, show, onToggleShow, error }) {
   return (
     <div style={{
-      alignItems: 'center', alignSelf: 'center', backgroundColor: error ? 'var(--color-error-tint)' : 'var(--color-card)',
+      alignItems: 'flex-end', alignSelf: 'center', backgroundColor: error ? 'var(--color-error-tint)' : 'var(--color-card)',
       borderColor: error ? 'var(--color-error)' : 'var(--color-border)', borderRadius: '12px', borderStyle: 'solid', borderWidth: '1px',
       boxShadow: '#00000033 0px 2px 3px', boxSizing: 'border-box', display: 'flex', flexShrink: '0', gap: '14px',
       marginTop: '24px', padding: '16px', width: '342px',
       transition: 'background-color 0.35s ease, border-color 0.35s ease',
     }}>
-      <div style={{ alignItems: 'center', backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)', borderRadius: '12px', borderStyle: 'solid', borderWidth: '1px', boxSizing: 'border-box', display: 'flex', flexShrink: '0', height: '50px', paddingInline: '16px', width: '230px', gap: '8px' }}>
-        <div style={{ boxSizing: 'border-box', color: 'var(--color-text-secondary)', fontFamily: '"Inter", system-ui, sans-serif', fontSize: 'var(--text-caption)', lineHeight: '18px', flexShrink: 0 }}>
+      {/* Label sits above the input, aligned to its left edge */}
+      <div style={{ boxSizing: 'border-box', display: 'flex', flexDirection: 'column', flexShrink: '0', gap: '6px', width: '230px' }}>
+        <div style={{ boxSizing: 'border-box', color: 'var(--color-text-secondary)', fontFamily: '"Inter", system-ui, sans-serif', fontSize: 'var(--text-caption)', lineHeight: '18px', textAlign: 'left' }}>
           {label}
         </div>
-        <input
-          type={show ? 'text' : 'password'}
-          value={value}
-          onChange={onChange}
-          placeholder=".........."
-          style={{
-            alignContent: 'center', background: 'transparent', border: 'none', boxSizing: 'border-box', color: 'var(--color-text-secondary)',
-            fontFamily: '"Inter", system-ui, sans-serif', fontSize: '20px', lineHeight: '24px', outline: 'none', textAlign: 'center', width: '100%', minWidth: 0,
-          }}
-        />
+        <div style={{ alignItems: 'center', backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)', borderRadius: '12px', borderStyle: 'solid', borderWidth: '1px', boxSizing: 'border-box', display: 'flex', flexShrink: '0', height: '50px', paddingInline: '16px', width: '100%' }}>
+          <input
+            type={show ? 'text' : 'password'}
+            value={value}
+            onChange={onChange}
+            placeholder=".........."
+            style={{
+              background: 'transparent', border: 'none', boxSizing: 'border-box', color: 'var(--color-text-primary)',
+              fontFamily: '"Inter", system-ui, sans-serif', fontSize: '20px', lineHeight: '24px', outline: 'none',
+              textAlign: 'left', width: '100%', minWidth: 0,
+            }}
+          />
+        </div>
       </div>
       <div
         onClick={onToggleShow}
-        style={{ alignItems: 'center', backgroundColor: 'var(--color-primary)', borderRadius: '12px', boxSizing: 'border-box', cursor: 'pointer', display: 'flex', flexShrink: '0', height: '48px', justifyContent: 'center', paddingInline: '10px', width: '71px', userSelect: 'none' }}
+        style={{ alignItems: 'center', backgroundColor: 'var(--color-primary)', borderRadius: '12px', boxSizing: 'border-box', cursor: 'pointer', display: 'flex', flexShrink: '0', height: '50px', justifyContent: 'center', paddingInline: '10px', width: '71px', userSelect: 'none' }}
       >
         <div style={{ boxSizing: 'border-box', color: 'var(--color-card)', fontFamily: '"Inter", system-ui, sans-serif', fontSize: '14px', fontWeight: 700, lineHeight: '18px' }}>
           {show ? 'Hide' : 'Show'}

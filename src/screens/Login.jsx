@@ -15,7 +15,9 @@ const METHODS = [
   { value: 'email', label: 'Email' },
 ];
 
-const LABEL = { phone: 'Phone Number', ic: 'IC Number', email: 'email@mail.com' };
+// Label sits above the field; the placeholder now shows an example value.
+const LABEL = { phone: 'Phone Number', ic: 'IC Number', email: 'Email' };
+const PLACEHOLDER = { phone: '0123456789', ic: '990101011234', email: 'email@mail.com' };
 
 export default function Login() {
   const navigate = useNavigate();
@@ -87,29 +89,37 @@ export default function Login() {
         </div>
       ) : (
         <>
-          <div style={{ alignItems: 'center', alignSelf: 'center', backgroundColor: 'var(--color-card)', borderColor: hasError ? 'var(--color-error)' : 'var(--color-border)', borderRadius: '12px', borderStyle: 'solid', borderWidth: '1px', boxShadow: '#00000033 0px 2px 3px', boxSizing: 'border-box', display: 'flex', flexShrink: '0', gap: '14px', marginTop: '24px', padding: '16px', width: '342px' }}>
-            <input
-              value={value}
-              onChange={(e) => { setValue(e.target.value); if (error) setError(null); }}
-              placeholder={LABEL[method]}
-              style={{ alignItems: 'center', backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)', borderRadius: '12px', borderStyle: 'solid', borderWidth: '1px', boxSizing: 'border-box', display: 'flex', flexShrink: '0', height: '50px', paddingInline: '16px', width: '308px', outline: 'none', color: 'var(--color-text-primary)', fontFamily: '"Inter", system-ui, sans-serif', fontSize: '16px', textAlign: 'center' }}
-            />
-          </div>
-
-          <div style={{ alignItems: 'center', alignSelf: 'center', backgroundColor: 'var(--color-card)', borderColor: hasError ? 'var(--color-error)' : 'var(--color-border)', borderRadius: '12px', borderStyle: 'solid', borderWidth: '1px', boxShadow: '#00000033 0px 2px 3px', boxSizing: 'border-box', display: 'flex', flexShrink: '0', gap: '14px', marginTop: '24px', padding: '16px', width: '342px' }}>
-            <div style={{ alignItems: 'center', backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)', borderRadius: '12px', borderStyle: 'solid', borderWidth: '1px', boxSizing: 'border-box', display: 'flex', flexShrink: '0', height: '50px', paddingInline: '16px', width: '230px', gap: '8px' }}>
-              <div style={{ boxSizing: 'border-box', color: 'var(--color-text-secondary)', fontFamily: '"Inter", system-ui, sans-serif', fontSize: 'var(--text-caption)', lineHeight: '18px', flexShrink: 0 }}>
-                Password
+          <div style={{ alignItems: 'flex-end', alignSelf: 'center', backgroundColor: 'var(--color-card)', borderColor: hasError ? 'var(--color-error)' : 'var(--color-border)', borderRadius: '12px', borderStyle: 'solid', borderWidth: '1px', boxShadow: '#00000033 0px 2px 3px', boxSizing: 'border-box', display: 'flex', flexShrink: '0', gap: '14px', marginTop: '24px', padding: '16px', width: '342px' }}>
+            {/* Label above the input, aligned to its left edge */}
+            <div style={{ boxSizing: 'border-box', display: 'flex', flexDirection: 'column', flexGrow: '1', gap: '6px', minWidth: 0 }}>
+              <div style={{ boxSizing: 'border-box', color: 'var(--color-text-secondary)', fontFamily: '"Inter", system-ui, sans-serif', fontSize: 'var(--text-caption)', lineHeight: '18px', textAlign: 'left' }}>
+                {LABEL[method]}
               </div>
               <input
-                type={show ? 'text' : 'password'}
-                value={password}
-                onChange={(e) => { setPassword(e.target.value); if (error) setError(null); }}
-                placeholder=".........."
-                style={{ alignContent: 'center', background: 'transparent', border: 'none', boxSizing: 'border-box', color: 'var(--color-text-secondary)', fontFamily: '"Inter", system-ui, sans-serif', fontSize: '20px', lineHeight: '24px', outline: 'none', textAlign: 'center', width: '100%', minWidth: 0 }}
+                value={value}
+                onChange={(e) => { setValue(e.target.value); if (error) setError(null); }}
+                placeholder={PLACEHOLDER[method]}
+                style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)', borderRadius: '12px', borderStyle: 'solid', borderWidth: '1px', boxSizing: 'border-box', height: '50px', paddingInline: '16px', width: '100%', outline: 'none', color: 'var(--color-text-primary)', fontFamily: '"Inter", system-ui, sans-serif', fontSize: '16px', textAlign: 'left' }}
               />
             </div>
-            <div onClick={() => setShow((s) => !s)} style={{ alignItems: 'center', backgroundColor: 'var(--color-primary)', borderRadius: '12px', boxSizing: 'border-box', cursor: 'pointer', display: 'flex', flexShrink: '0', height: '48px', justifyContent: 'center', paddingInline: '10px', width: '71px', userSelect: 'none' }}>
+          </div>
+
+          <div style={{ alignItems: 'flex-end', alignSelf: 'center', backgroundColor: 'var(--color-card)', borderColor: hasError ? 'var(--color-error)' : 'var(--color-border)', borderRadius: '12px', borderStyle: 'solid', borderWidth: '1px', boxShadow: '#00000033 0px 2px 3px', boxSizing: 'border-box', display: 'flex', flexShrink: '0', gap: '14px', marginTop: '24px', padding: '16px', width: '342px' }}>
+            <div style={{ boxSizing: 'border-box', display: 'flex', flexDirection: 'column', flexShrink: '0', gap: '6px', width: '230px' }}>
+              <div style={{ boxSizing: 'border-box', color: 'var(--color-text-secondary)', fontFamily: '"Inter", system-ui, sans-serif', fontSize: 'var(--text-caption)', lineHeight: '18px', textAlign: 'left' }}>
+                Password
+              </div>
+              <div style={{ alignItems: 'center', backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)', borderRadius: '12px', borderStyle: 'solid', borderWidth: '1px', boxSizing: 'border-box', display: 'flex', flexShrink: '0', height: '50px', paddingInline: '16px', width: '100%' }}>
+                <input
+                  type={show ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => { setPassword(e.target.value); if (error) setError(null); }}
+                  placeholder=".........."
+                  style={{ background: 'transparent', border: 'none', boxSizing: 'border-box', color: 'var(--color-text-primary)', fontFamily: '"Inter", system-ui, sans-serif', fontSize: '20px', lineHeight: '24px', outline: 'none', textAlign: 'left', width: '100%', minWidth: 0 }}
+                />
+              </div>
+            </div>
+            <div onClick={() => setShow((s) => !s)} style={{ alignItems: 'center', backgroundColor: 'var(--color-primary)', borderRadius: '12px', boxSizing: 'border-box', cursor: 'pointer', display: 'flex', flexShrink: '0', height: '50px', justifyContent: 'center', paddingInline: '10px', width: '71px', userSelect: 'none' }}>
               <div style={{ boxSizing: 'border-box', color: 'var(--color-card)', fontFamily: '"Inter", system-ui, sans-serif', fontSize: '14px', fontWeight: 700, lineHeight: '18px' }}>
                 {show ? 'Hide' : 'Show'}
               </div>
